@@ -373,6 +373,40 @@ function mpg2Lper100km(text) {
 	return text;
 }
 
+function ozYard2gsm(text) {
+
+	let regex = new RegExp(regstart + intOrFloat + '[ \u00A0]?oz/yd?' + unitSuffix + ')', 'ig');
+
+	if (text.search(regex) !== -1) {
+		let matches;
+
+		while ((matches = regex.exec(text)) !== null) {
+			try {
+                if (BracketsCheck(matches[0])) continue;
+				const fullMatch = matches[1];
+				
+				var imp = matches[2];
+				if (imp !== undefined) {
+					imp = imp.replace(',', '');
+				}
+
+				imp = parseFloat(imp);
+
+				if (imp === 0 || isNaN(imp)) continue;
+				var l = imp / 33.906; // ozYard / 33.906 = grams per meter square
+				var met = convert(l, 1, false);               
+
+				const insertIndex = GetIndexPos(matches.index, fullMatch);				
+				const metStr = prepareForOutput(met, '\u00A0g\/m2\u00A0km', false);
+				text = insertAt(text, metStr, insertIndex);
+			} catch (err) {
+				//console.log(err.message);
+			}
+		}
+	}
+	return text;
+}
+
 function GetIndexPos(index, fullMatch) {
     let insertIndex = index + fullMatch.length; 
     let lastchar = fullMatch[fullMatch.length -1];

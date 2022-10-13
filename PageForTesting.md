@@ -504,3 +504,12 @@ should not convert 1964 in Germany
 draft 01 indeed <- bug
 
 one-half to 1½ inches in diameter
+
+1.0 oz/yd2
+
+1.0 oz/yd 2
+
+1.0 oz/yd
+
+1.0 oz / yd
+
